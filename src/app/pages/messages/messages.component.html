@@ -1,0 +1,34 @@
+<br><br><br><br><br><br><br><br>
+<div class="content-mes" id="contentRec">
+    <table class="rec-table">
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>From</th>
+                <th>Messages</th>
+                <th>Date</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let message of messages; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ message.origin }}</td>
+                <td>{{ message.text }}</td>
+                <td>{{ formatDate(message.date) }}</td>
+            </tr>
+          </tbody>
+    </table>
+    <br><br><br>
+    <div *ngIf="showConfirmDialog" class="accept">
+        <p class="dialog">Are you sure you want to delete all messages?</p>
+        <button type="submit" (click)="deleteMessages()">Yes, delete</button>
+        <br>
+        <button type="submit" (click)="cancelDeletion()">Cancel</button>
+    </div>
+    
+      <!-- Delete Button -->
+    <div class="accept">
+        <button *ngIf="showDeleteButton" type="submit" (click)="confirmDeletion()">Delete All Messages</button>
+    </div>
+</div>

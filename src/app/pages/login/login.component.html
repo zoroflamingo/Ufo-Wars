@@ -1,0 +1,18 @@
+<br><br><br><br><br><br><br><br>
+<form (ngSubmit)="onSubmit()">
+    <div class="content">
+        <div>
+            <label for="userNameLog">User</label>
+            <input type="text" name="userNameLog" class="pref" [(ngModel)]="userName" #userNameInput="ngModel" required>
+        </div>
+        <br><br><br>
+        <div>
+            <label for="passwordLog">Password</label>
+            <input type="password" name="passwordLog" class="pref" [(ngModel)]="password" #passwordInput="ngModel" required>        
+        </div>
+        <br><br><br>
+        <div class="accept">
+            <button type="submit">{{ isLoggedIn ? "logout" : "login" }}</button>
+        </div>
+    </div>
+</form>

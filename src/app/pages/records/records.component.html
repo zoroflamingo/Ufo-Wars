@@ -1,0 +1,25 @@
+<br><br><br><br><br><br><br><br>
+<div class="content" id="contentRec">
+    <table class="rec-table">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>User</th>
+                <th>Points</th>
+                <th>UFOs</th>
+                <th>Secs</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let record of records; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ record.username || 'AAAAAA' }}</td>
+              <td>{{ record.punctuation || 0 }}</td>
+              <td>{{ record.ufos || 0 }}</td>
+              <td>{{ record.disposedTime || 0 }}</td>
+              <td>{{ formatDate(record.recordDate) }}</td>
+            </tr>
+          </tbody>
+    </table>
+</div>

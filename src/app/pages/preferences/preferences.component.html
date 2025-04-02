@@ -1,0 +1,29 @@
+<br><br><br><br><br><br><br><br>
+<form (ngSubmit)="onSaveLocally()" [formGroup]="preferencesForm" id="prefForm">
+    <div class="content">
+        <div>
+            <label for="ufoAmount">Number of UFO</label>
+            <select name="Number" class="pref" formControlName="ufoAmount">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <br><br><br>
+        <div>
+            <label for="timeAmount">Time(seconds)</label>
+            <select name="Time" class="pref" formControlName="timeAmount">
+                <option value="60">60</option>
+                <option value="120">120</option>
+                <option value="180">180</option>
+            </select>
+        </div>
+        <br><br><br>
+        <div class="accept">
+            <button type="submit">Save Locally</button>
+            <button type="submit" (click)="onSaveRemotely()" *ngIf="authService.getLoggedInStatus()">Save Remotely</button>        
+        </div>
+    </div>
+</form>

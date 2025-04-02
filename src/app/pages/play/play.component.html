@@ -1,0 +1,27 @@
+<div #ufoContainer class="game-area"></div>
+
+<div>
+  <img src="assets/missile.png" alt="Missile" class="imgMis" #imgMisGame>
+</div>
+
+<div>
+  <img src="assets/explosion.gif" 
+       style="display: none; position: absolute;" 
+       alt="Explosion" 
+       class="explosion"
+       #explosion>
+</div>
+
+<div class="play-sco">
+  <div class="score-box">
+    <label class="label-sco">Time left</label>
+    <br><br>
+    <p id="timer">{{ seconds > 0 ? seconds : "Time's up!" }}</p>
+    <br><br>
+    <label class="label-sco">Punctuation</label>
+    <br><br>
+    <p id="score">{{ score }}</p> <!-- Data binding for the score -->
+    <br><br>
+    <button class="button" #btnStart (click)="startGame()">Start</button> <!-- Angular event binding -->
+  </div>
+</div>

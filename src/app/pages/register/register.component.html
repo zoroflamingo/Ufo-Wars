@@ -1,0 +1,28 @@
+<br><br><br><br><br><br><br><br>
+<form (ngSubmit)="onSubmit()">
+    <div class="content">
+        <div>
+            <label for="userNameReg">User</label>
+            <input type="text" name="userName" class="pref" [(ngModel)]="userName" #userNameInput="ngModel" required>
+        </div>
+        <br><br><br>
+        <div>
+            <label for="emailReg">Email</label>
+            <input type="email" name="email" class="pref" [(ngModel)]="email" #userNameInput="ngModel" required>
+        </div>
+        <br><br><br>
+        <div>
+            <label for="passwordReg">Password</label>
+            <input type="password" name="password" class="pref" [(ngModel)]="password" #userNameInput="ngModel" required>
+        </div>
+        <br><br><br>
+        <div>
+            <label for="passwordRepReg">Repeat password</label>
+            <input type="password" name="password" class="pref" [(ngModel)]="passwordRep" #userNameInput="ngModel" required>
+        </div>
+        <br><br><br>
+        <div class="accept">
+            <button type="submit">Submit</button>
+        </div>
+    </div>
+</form>

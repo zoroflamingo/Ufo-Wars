@@ -1,0 +1,16 @@
+<div class="container" id="header">
+  <img src="assets/ufo.png" alt="A UFO" class="imgUFO">
+  <p id="Title">UFO Wars</p>
+  <button class="button" [routerLink]="'/home'">Home</button>
+  <button class="button" [routerLink]="'/preferences'">Preferences</button>
+  <button class="button" [routerLink]="'/play'">Play</button>
+  <button class="button" [routerLink]="'/records'">Records</button>
+  <button class="button" *ngIf="isLoggedIn" [routerLink]="'/messages'">Messages</button>
+  <div class="container" id="rightButtons">
+      <button class="button" [routerLink]="'/register'">Register</button>
+      <button class="button" [routerLink]="'/login'">Login</button>
+  </div>
+</div>
+
+<!-- This is where routed components appear -->
+<router-outlet></router-outlet>
