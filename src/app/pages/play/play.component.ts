@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { PreferencesService } from '../../services/preferences.service';
 
 interface UfoElement extends HTMLElement {
@@ -37,8 +37,11 @@ export class PlayComponent implements OnInit {
   titleHeight = 0;
   zoneHeight = 0;
   
-  constructor(private renderer: Renderer2, private preferencesService: PreferencesService) {}
-
+  constructor(
+    @Inject(Renderer2) private readonly renderer: Renderer2,
+    private readonly preferencesService: PreferencesService
+  ) {}
+  
   ngOnInit(): void {
     this.loadPreferences();
     this.titleHeight = document.getElementById('header')!.offsetHeight;
@@ -55,7 +58,7 @@ export class PlayComponent implements OnInit {
   startGame(): void {
     this.ufoContainer.nativeElement.innerHTML = ''; // Clear existing UFOs
     this.renderer.setStyle(this.missile.nativeElement, 'display', 'block');
-    this.seconds = parseInt(localStorage.getItem('gameTimer') || '60', 10);
+    this.seconds = parseInt(localStorage.getItem('gameTimer') ?? '60', 10);
     this.misPositionY = 0;
     this.misPositionX = window.innerWidth / 2;
     this.updateMissilePosition();
@@ -63,7 +66,7 @@ export class PlayComponent implements OnInit {
     this.createOrReplaceUfo(this.ufosCount);
     this.startButton.nativeElement.disabled = true;
     this.isGameActive = true;
-    this.seconds = parseInt(localStorage.getItem('gameTimer') || '60', 10); // Set timer from preferences
+    this.seconds = parseInt(localStorage.getItem('gameTimer') ?? '60', 10); // Set timer from preferences
     this.timer = setInterval(() => this.updateTimer(), 1000);
     this.moveUfo();
     this.smoothMoveMissile();
@@ -245,8 +248,8 @@ export class PlayComponent implements OnInit {
   }
 
   finalScore(): void {
-    const savedTimer = parseInt(localStorage.getItem('gameTimer') || '60', 10);
-    const savedUfoCount = parseInt(localStorage.getItem('ufoCount') || '1', 10);
+    const savedTimer = parseInt(localStorage.getItem('gameTimer') ?? '60', 10);
+    const savedUfoCount = parseInt(localStorage.getItem('ufoCount') ?? '1', 10);
 
     if (savedTimer === 120) {
       this.score /= 2;

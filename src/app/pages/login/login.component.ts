@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/user-auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   password: string = '';
   isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private readonly authService: AuthService, @Inject(Router) private readonly router: Router) {}
 
   ngOnInit(): void {
     this.updateLoginState();
@@ -29,8 +29,7 @@ export class LoginComponent implements OnInit {
     if (this.isLoggedIn){
       this.logout();
       this.router.navigate(['/home']);
-    } else {
-      if (this.userName && this.password) {  
+    } else if (this.userName && this.password){  
         try {
           await this.authService.login(this.userName, this.password);
           this.isLoggedIn = this.authService.getLoggedInStatus();
@@ -41,8 +40,6 @@ export class LoginComponent implements OnInit {
       } else {
         alert('Please fill out all fields.');
       }
-  
-    }
   }
 
   logout() {

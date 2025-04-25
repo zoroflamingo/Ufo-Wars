@@ -5,9 +5,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private loggedInSubject = new BehaviorSubject<boolean>(false);
+  private readonly loggedInSubject = new BehaviorSubject<boolean>(false);
   loggedInStatusChanged = this.loggedInSubject.asObservable();
-  private usernameSubject = new BehaviorSubject<string | null>(null);
+  private readonly usernameSubject = new BehaviorSubject<string | null>(null);
 
   constructor() {
     this.updateLoginState();
@@ -18,7 +18,7 @@ export class AuthService {
     this.loggedInSubject.next(isLoggedIn);
 
     if (isLoggedIn) {
-      this.usernameSubject.next(localStorage.getItem('username') || null);
+      this.usernameSubject.next(localStorage.getItem('username') ?? null);
     } else {
       this.usernameSubject.next(null);
     }
@@ -35,7 +35,7 @@ export class AuthService {
   login(username: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
       const url = `http://wd.etsisi.upm.es:10000/users/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
-
+  
       fetch(url, {
         method: 'GET',
         headers: {
@@ -57,12 +57,18 @@ export class AuthService {
             throw new Error('Token not found in response body');
           }
         })
-        .catch((error) => {
-          reject(error);
+        .catch((error: unknown) => {
+          // Ensure that error is an instance of Error
+          if (error instanceof Error) {
+            reject(error);
+          } else {
+            // Reject with a generic Error if not an instance of Error
+            reject(new Error('An unknown error occurred during login.'));
+          }
         });
     });
   }
-
+  
   logout(): void {
     localStorage.removeItem('authToken');
     localStorage.setItem('login', 'false');
